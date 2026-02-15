@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>India Utility Hub | Age Calc, GST, & Leave Generator</title>
+    <style>
+        :root { --primary: #1a73e8; --secondary: #34a853; --dark: #202124; }
+        body { font-family: 'Segoe UI', Arial, sans-serif; background-color: #f8f9fa; color: var(--dark); margin: 0; padding: 15px; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 20px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+        h1 { text-align: center; color: var(--primary); font-size: 22px; margin-bottom: 5px; }
+        p.subtitle { text-align: center; font-size: 14px; color: #666; margin-bottom: 25px; }
+        .tool-box { border: 1px solid #eee; padding: 15px; border-radius: 10px; margin-bottom: 20px; background: #fff; }
+        h3 { margin-top: 0; font-size: 16px; color: var(--primary); border-bottom: 2px solid #f0f2f5; padding-bottom: 5px; }
+        label { font-size: 13px; font-weight: bold; display: block; margin-top: 10px; }
+        input, select, button { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 15px; }
+        button { background: var(--primary); color: white; border: none; font-weight: bold; cursor: pointer; }
+        button:hover { background: #1557b0; }
+        .result-area { background: #f1f3f4; padding: 12px; border-radius: 6px; margin-top: 10px; font-size: 14px; white-space: pre-wrap; display: none; border-left: 4px solid var(--secondary); }
+        .ad-placeholder { background: #fafafa; border: 1px dashed #ccc; padding: 10px; text-align: center; color: #999; font-size: 12px; margin: 20px 0; }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h1>🇮🇳 India Utility Hub</h1>
+    <p class="subtitle">Fast • Free • No Login</p>
+
+    <div class="ad-placeholder">Ad Space (Auto-activates after AdSense approval)</div>
+
+    <div class="tool-box">
+        <h3>📅 Exam Age Calculator</h3>
+        <label>Date of Birth:</label>
+        <input type="date" id="dob">
+        <button onclick="calcAge()">Calculate Age</button>
+        <div id="ageRes" class="result-area"></div>
+    </div>
+
+    <div class="tool-box">
+        <h3>💰 GST Calculator (India)</h3>
+        <label>Amount (₹):</label>
+        <input type="number" id="gstAmount" placeholder="e.g. 1000">
+        <label>GST Rate (%):</label>
+        <select id="gstRate">
+            <option value="5">5% (Essentials)</option>
+            <option value="12">12% (Standard)</option>
+            <option value="18" selected>18% (Most Goods)</option>
+            <option value="28">28% (Luxury)</option>
+        </select>
+        <button onclick="calcGST()" style="background: var(--secondary);">Calculate Total</button>
+        <div id="gstRes" class="result-area"></div>
+    </div>
+
+    <div class="tool-box">
+        <h3>📝 Instant Leave Writer</h3>
+        <input type="text" id="uName" placeholder="Your Full Name">
+        <select id="lReason">
+            <option value="suffering from fever/flu">Sick Leave</option>
+            <option value="having an urgent piece of work">Urgent Work</option>
+            <option value="attending a family wedding">Family Function</option>
+        </select>
+        <button onclick="genL()" style="background: #5f6368;">Generate Message</button>
+        <div id="lRes" class="result-area"></div>
+    </div>
+
+    <p style="text-align:center; font-size:11px; color:#aaa;">&copy; 2026 Free India Tools. 100% Legal & Private.</p>
+</div>
+
+<script>
+    function calcAge() {
+        const d = new Date(document.getElementById('dob').value);
+        if(!d.getTime()) return;
+        const now = new Date();
+        let age = now.getFullYear() - d.getFullYear();
+        if (now.getMonth() < d.getMonth() || (now.getMonth() === d.getMonth() && now.getDate() < d.getDate())) age--;
+        const res = document.getElementById('ageRes');
+        res.innerHTML = "<b>Your Age:</b> " + age + " years";
+        res.style.display = 'block';
+    }
+
+    function calcGST() {
+        const amt = parseFloat(document.getElementById('gstAmount').value);
+        const rate = parseFloat(document.getElementById('gstRate').value);
+        if(!amt) return;
+        const gst = (amt * rate) / 100;
+        const total = amt + gst;
+        const res = document.getElementById('gstRes');
+        res.innerHTML = `Base Amount: ₹${amt.toFixed(2)}\nGST (${rate}%): ₹${gst.toFixed(2)}\n<b>Total: ₹${total.toFixed(2)}</b>`;
+        res.style.display = 'block';
+    }
+
+    function genL() {
+        const n = document.getElementById('uName').value || "User";
+        const r = document.getElementById('lReason').value;
+        const res = document.getElementById('lRes');
+        res.innerText = `Subject: Leave Application - ${n}\n\nDear Sir/Madam,\n\nI am writing to request leave for today as I am ${r}. Please consider my application.\n\nRegards,\n${n}`;
+        res.style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
